@@ -6,16 +6,21 @@ import {
 import type { Task } from "../types/task";
 import { TASKS_API_URL } from "../Services/api";
 
+type UpdateTaskInput = {
+  id: string;
+  taskStatus: Task["taskStatus"];
+};
+
 export const useUpdateTaskStatus = (): UseMutationResult<
   Task,
   Error,
-  { id: string; taskStatus: string },
-  Omit<Task, "taskName">
+  UpdateTaskInput
 > => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async ({ id, taskStatus }: Omit<Task, "taskName">) => {
+  
+  return useMutation<Task, Error, UpdateTaskInput>({
+    mutationFn: async ({ id, taskStatus }) => {
       const response = await fetch(`${TASKS_API_URL}/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

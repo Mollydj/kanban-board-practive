@@ -6,14 +6,16 @@ import {
 import type { Task } from "../types/task";
 import { TASKS_API_URL } from "../Services/api";
 
+type CreateTaskInput = {
+  id: string;
+  taskStatus: Task["taskStatus"];
+};
+
 export const useCreateKanbanTask = (): UseMutationResult<
   Task,
   Error,
   Omit<Task, "id">,
-  {
-    taskName: string;
-    taskStatus: string;
-  }
+  CreateTaskInput
 > => {
   const queryClient = useQueryClient();
 
