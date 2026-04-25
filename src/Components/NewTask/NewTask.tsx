@@ -18,7 +18,7 @@ export const NewTask = () => {
   const handleCreateTask = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!taskName.trim()) {
       setError(true);
-      return;
+      return null;
     }
     event.preventDefault();
     const newTask = {
@@ -38,12 +38,15 @@ export const NewTask = () => {
         error={error ? "Task name cannot be empty" : undefined}
       >
         <InputText
+          aria-label="Task Input Field"
           placeholder="Write your next task here..."
           value={taskName}
           onChange={handleSetTaskName}
         />
       </Field>
-      <Button onClick={handleCreateTask}>Create Task</Button>
+      <Button aria-label="Create Task" onClick={handleCreateTask}>
+        Create Task
+      </Button>
     </div>
   );
 };

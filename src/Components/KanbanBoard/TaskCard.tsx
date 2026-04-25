@@ -5,9 +5,9 @@ export const TaskCard = ({ task }: { task: Task }) => {
   const { ref } = useDraggable({
     id: task.id,
   });
-  if (!task.taskName.trim()) return;
+  if (!task.taskName.trim()) return null;
   return (
-    <div ref={ref} className="task">
+    <div ref={ref} aria-label={`Task: ${task.taskName}`} className="task">
       {task.taskName}
     </div>
   );

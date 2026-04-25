@@ -18,7 +18,7 @@ export const SwimLane = ({ tasks, title, id }: SwimLaneProps) => {
       ref={ref}
       className={`${isDropTarget ? "is-dragging" : "droppable"} swimlane p-xl rounded-md bg-grid-warm-minimal`}
     >
-      <Text variant="heading-md-strong">{title}</Text>
+      <Text aria-label={`${title} Task Column`} variant="heading-md-strong">{title}</Text>
       {tasks.map((task) => (
         <TaskCard key={task.id} task={task} />
       ))}

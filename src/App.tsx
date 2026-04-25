@@ -32,7 +32,7 @@ function App() {
     <div className="kanban-body">
       <Header />
       <NewTask />
-      <KanbanBoard isLoading={isLoading} isError={isError}>
+      <KanbanBoard>
         {lanes.map((lane) => (
           <SwimLane
             tasks={groupedTasks[lane.key]}
