@@ -1,38 +1,23 @@
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "../App";
-import { vi, test, expect } from "vitest";
+import { test, expect, vi } from "vitest";
+import { mockData } from "../Services/mockData";
 
-vi.mock("../Components/Loading/Loading", () => ({
-  default: () => <p>loading</p>,
-}));
+test("renders kanban board columns", async () => {
+  vi.mock("../Hooks/getKanbanTasks", () => ({
+    useKanbanTasks: () => ({
+      data: mockData,
+      isLoading: false,
+      isError: false,
+    }),
+  }));
 
-vi.mock("../Components/Header/Header", () => ({
-  default: () => <div>Header</div>,
-}));
-
-vi.mock("../Components/NewTask/NewTask", () => ({
-  default: () => <div>NewTask</div>,
-}));
-
-vi.mock("../Components/KanbanBoard/SwimLane", () => ({
-  default: ({ title }: { title: string }) => <div>{title}</div>,
-}));
-
-vi.mock("../Hooks/getKanbanTasks", () => ({
-  TaskStatus: {
-    TO_DO: "TO_DO",
-    IN_PROGRESS: "IN_PROGRESS",
-    DONE: "DONE",
-  },
-  useKanbanTasks: () => ({
-    data: [],
-    isLoading: false,
-    isError: false,
-  }),
-}));
-
-test("renders swimlanes", () => {
   const queryClient = new QueryClient();
 
   render(
@@ -40,4 +25,8 @@ test("renders swimlanes", () => {
       <App />
     </QueryClientProvider>,
   );
+
+  expect(screen.getByText("To Do")).toBeInTheDocument();
+  expect(screen.getByText("In Progress")).toBeInTheDocument();
+  expect(screen.getByText("Done")).toBeInTheDocument();
 });
