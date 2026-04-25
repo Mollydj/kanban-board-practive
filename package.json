@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dnd-kit/react": "^0.4.0",
+    "@tanstack/react-query": "^5.100.3",
     "react": "^19.0.0",
     "react-dom": "^19.2.5",
     "tailwindcss": "^4.2.4",
