@@ -1,13 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { TaskType } from "./getKanbanTasks";
+import type { Task } from "../types/task";
+import { TASKS_API_URL } from "../Services/api";
 
 export const useCreateKanbanTask = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (task: Omit<TaskType, "id">) => {
+    mutationFn: async (task: Omit<Task, "id">) => {
       const response = await fetch(
-        `https://69eccd72af4ff533142b65c2.mockapi.io/kanban/KanbanTasks`,
+        `${TASKS_API_URL}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

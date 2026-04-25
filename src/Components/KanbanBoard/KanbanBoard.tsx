@@ -1,13 +1,12 @@
 import type { ReactNode } from "react";
-import { Loader } from "welcome-ui/Loader";
 import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { useUpdateTaskStatus } from "../../Hooks/updateKanbanTasks";
 import "./KanbanBoard.css";
-import { Alert } from "welcome-ui/Alert";
 import Error from "../Feedback/Error/Error";
 import Loading from "../Feedback/Loading/Loading";
+import type { TASK_STATUS } from "../../types/task";
 
-export const KanBoardContainer = ({
+export const KanbanBoard = ({
   children,
   isLoading,
   isError,
@@ -22,17 +21,17 @@ export const KanBoardContainer = ({
     const { operation } = event;
     const source = operation.source;
     const target = operation.target;
+
+    console.log("TARGET>>", target.id);
     if (!target) return;
     mutate({
       id: source.id as string,
-      taskStatus: target.id as string,
+      taskStatus: target.id as TASK_STATUS,
     });
   };
 
   if (isError) {
-    return (
-      <Error />
-    );
+    return <Error />;
   }
   return (
     <div className="dragg-and-drop-container">
@@ -44,4 +43,4 @@ export const KanBoardContainer = ({
   );
 };
 
-export default KanBoardContainer;
+export default KanbanBoard;

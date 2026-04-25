@@ -1,25 +1,25 @@
-import { taskStatus, type TaskType } from "../Hooks/getKanbanTasks";
+import { TASK_STATUS, type Task } from "../types/task";
 
 
-export const mockData: TaskType[] = [
+export const mockData: Task[] = [
     {
         taskName: "Walk Pablo",
-        taskStatus: taskStatus.TO_DO,
+        taskStatus: TASK_STATUS.TO_DO,
         id: "1"
     },
     {
         taskName: "Feed Pablo",
-        taskStatus: taskStatus.DONE,
+        taskStatus: TASK_STATUS.DONE,
         id: "2"
     },
     {
         taskName: "Give Pablo a bath",
-        taskStatus: taskStatus.TO_DO,
+        taskStatus: TASK_STATUS.TO_DO,
         id: "3"
     },
     {
         taskName: "Order new Treats",
-        taskStatus: taskStatus.DONE,
+        taskStatus: TASK_STATUS.DONE,
         id: "4"
     },
 ]

@@ -1,0 +1,1 @@
+export const TASKS_API_URL = "https://69eccd72af4ff533142b65c2.mockapi.io/kanban/KanbanTasks"

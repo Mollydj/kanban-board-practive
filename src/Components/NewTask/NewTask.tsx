@@ -3,30 +3,44 @@ import { Field } from "welcome-ui/Field";
 import { InputText } from "welcome-ui/InputText";
 import { useCreateKanbanTask } from "../../Hooks/createKanbanTask";
 import { useState } from "react";
-import { taskStatus } from "../../Hooks/getKanbanTasks";
 import "./NewTask.css";
+import { TASK_STATUS } from "../../types/task";
 
 export const NewTask = () => {
   const { mutate: addTask } = useCreateKanbanTask();
   const [taskName, setTaskName] = useState("");
+  const [error, setError] = useState(false);
 
-  const handleCreateTask = (event) => {
+  const handleSetTaskName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskName(event.target.value);
+  };
+
+  const handleCreateTask = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!taskName.trim()) {
+      setError(true);
+      return;
+    }
     event.preventDefault();
     const newTask = {
-      taskStatus: taskStatus.TO_DO,
+      taskStatus: TASK_STATUS.TO_DO,
       taskName: taskName,
     };
-    setTaskName("")
+    setTaskName("");
+    setError(false);
     addTask(newTask);
   };
 
   return (
     <div className="kanban-add-task">
-      <Field label={null} hideLabel>
+      <Field
+        label={null}
+        hideLabel
+        error={error ? "Task name cannot be empty" : undefined}
+      >
         <InputText
           placeholder="Write your next task here..."
           value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          onChange={handleSetTaskName}
         />
       </Field>
       <Button onClick={handleCreateTask}>Create Task</Button>

@@ -20,7 +20,7 @@ vi.mock("../Components/KanbanBoard/SwimLane", () => ({
 }));
 
 vi.mock("../Hooks/getKanbanTasks", () => ({
-  taskStatus: {
+  TaskStatus: {
     TO_DO: "TO_DO",
     IN_PROGRESS: "IN_PROGRESS",
     DONE: "DONE",

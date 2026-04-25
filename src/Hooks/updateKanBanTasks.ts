@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { TaskType } from "./getKanbanTasks";
+import type { Task } from "../types/task";
+import { TASKS_API_URL } from "../Services/api";
 
 export const useUpdateTaskStatus = () => {
   const queryClient = useQueryClient();
@@ -8,9 +9,9 @@ export const useUpdateTaskStatus = () => {
     mutationFn: async ({
       id,
       taskStatus,
-    }: Omit<TaskType, "taskName">) => {
+    }: Omit<Task, "taskName">) => {
       const response = await fetch(
-        `https://69eccd72af4ff533142b65c2.mockapi.io/kanban/KanbanTasks/${id}`,
+        `${TASKS_API_URL}/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

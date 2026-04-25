@@ -1,30 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import { TASK_STATUS, type Task } from "../types/task";
+import { TASKS_API_URL } from "../Services/api";
 
-
-export const taskStatus = {
-  TO_DO: "TO_DO",
-  IN_PROGRESS: "IN_PROGRESS",
-  DONE: "DONE",
+export const TaskStatusLabels = {
+  "To Do": TASK_STATUS.TO_DO,
+  "In Progress": TASK_STATUS.IN_PROGRESS,
+  Done: TASK_STATUS.DONE,
 } as const;
 
-export const taskStatusLabels = {
-  "To Do": taskStatus.TO_DO,
-  "In Progress": taskStatus.IN_PROGRESS,
-  Done: taskStatus.DONE,
-} as const;
-
-export type TaskType = {
-  id: string;
-  taskStatus:
-    | typeof taskStatus.TO_DO
-    | typeof taskStatus.IN_PROGRESS
-    | typeof taskStatus.DONE;
-  taskName: string;
-};
-
-const getTasks = async (): Promise<TaskType[]> => {
+const getTasks = async (): Promise<Task[]> => {
   const response = await fetch(
-    "https://69eccd72af4ff533142b65c2.mockapi.io/kanban/KanbanTasks",
+    `${TASKS_API_URL}`,
   );
   if (!response.ok) {
     throw new Error("Failed to fetch tasks");
@@ -34,7 +20,7 @@ const getTasks = async (): Promise<TaskType[]> => {
 };
 
 export const useKanbanTasks = () => {
-  return useQuery<TaskType[], Error>({
+  return useQuery<Task[], Error>({
     queryKey: ["tasks"],
     queryFn: getTasks,
   });

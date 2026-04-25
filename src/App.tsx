@@ -1,47 +1,47 @@
 import Header from "./Components/Header/Header";
 import NewTask from "./Components/NewTask/NewTask";
-import KanBoardContainer from "./Components/KanbanBoard/KanbanBoardContainer";
+import KanbanBoard from "./Components/KanbanBoard/KanbanBoard";
 import SwimLane from "./Components/KanbanBoard/SwimLane";
-import { taskStatus, useKanbanTasks } from "./Hooks/getKanbanTasks";
+import { useKanbanTasks } from "./Hooks/getKanbanTasks";
 import { useMemo } from "react";
+import { TASK_STATUS } from "./types/task";
+import Loading from "./Components/Feedback/Loading/Loading";
+import Error from "./Components/Feedback/Error/Error";
+import { lanes } from "./Components/KanbanBoard/SwimLanes";
 
 function App() {
   const { data = [], isLoading, isError } = useKanbanTasks();
   const groupedTasks = useMemo(() => {
     return {
-      [taskStatus.TO_DO]: data.filter(
-        (task) => task.taskStatus === taskStatus.TO_DO,
+      [TASK_STATUS.TO_DO]: data.filter(
+        (task) => task.taskStatus === TASK_STATUS.TO_DO,
       ),
-      [taskStatus.IN_PROGRESS]: data.filter(
-        (task) => task.taskStatus === taskStatus.IN_PROGRESS,
+      [TASK_STATUS.IN_PROGRESS]: data.filter(
+        (task) => task.taskStatus === TASK_STATUS.IN_PROGRESS,
       ),
-      [taskStatus.DONE]: data.filter(
-        (task) => task.taskStatus === taskStatus.DONE,
+      [TASK_STATUS.DONE]: data.filter(
+        (task) => task.taskStatus === TASK_STATUS.DONE,
       ),
     };
   }, [data]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
 
   return (
     <div className="kanban-body">
       <Header />
       <NewTask />
-      <KanBoardContainer isLoading={isLoading} isError={isError}>
-        <SwimLane
-          tasks={groupedTasks[taskStatus.TO_DO]}
-          title="To Do"
-          id={taskStatus.TO_DO}
-        />
-        <SwimLane
-          tasks={groupedTasks[taskStatus.IN_PROGRESS]}
-          title="In Progress"
-          id={taskStatus.IN_PROGRESS}
-        />
-        <SwimLane
-          tasks={groupedTasks[taskStatus.DONE]}
-          title="Done"
-          id={taskStatus.DONE}
-        />
-      </KanBoardContainer>
+      <KanbanBoard isLoading={isLoading} isError={isError}>
+        {lanes.map((lane) => (
+          <SwimLane
+            tasks={groupedTasks[lane.key]}
+            title={lane.title}
+            id={lane.key}
+            key={lane.key}
+          />
+        ))}
+      </KanbanBoard>
     </div>
   );
 }
