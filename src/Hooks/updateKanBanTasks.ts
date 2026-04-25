@@ -9,7 +9,8 @@ import { TASKS_API_URL } from "../Services/api";
 export const useUpdateTaskStatus = (): UseMutationResult<
   Task,
   Error,
-  { id: string; taskStatus: string }
+  { id: string; taskStatus: string },
+  Omit<Task, "taskName">
 > => {
   const queryClient = useQueryClient();
 

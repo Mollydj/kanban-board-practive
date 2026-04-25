@@ -19,7 +19,7 @@ export const KanbanBoard = ({
 
     if (!target) return null;
     mutate({
-      id: source.id as string,
+      id: source?.id as string,
       taskStatus: newStatus as TASK_STATUS,
     });
   };
