@@ -2,5 +2,7 @@
 
 .kanban-add-task {
   display: flex;
+  flex-direction: row;
   margin: 14px 0px;
+  gap: 12px;
 }

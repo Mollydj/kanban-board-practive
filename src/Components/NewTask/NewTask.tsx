@@ -44,7 +44,7 @@ export const NewTask = () => {
           onChange={handleSetTaskName}
         />
       </Field>
-      <Button aria-label="Create Task" onClick={handleCreateTask}>
+      <Button aria-label="Submit New Task" type="submit" onClick={handleCreateTask}>
         Create Task
       </Button>
     </div>

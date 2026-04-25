@@ -15,11 +15,12 @@ export const KanbanBoard = ({
     const { operation } = event;
     const source = operation.source;
     const target = operation.target;
+    const newStatus = target.id as string
 
     if (!target) return null;
     mutate({
       id: source.id as string,
-      taskStatus: target.id as TASK_STATUS,
+      taskStatus: newStatus as TASK_STATUS,
     });
   };
 
@@ -29,6 +30,7 @@ export const KanbanBoard = ({
       <DragDropProvider onDragEnd={handleDragEnd}>
         {children}
       </DragDropProvider>
+      {/* Set up the DragDropProvider to handle drag-and-drop interactions for the swim lanes and task cards */}
     </div>
   );
 };

@@ -25,8 +25,8 @@ function App() {
     };
   }, [data]);
 
-  if (isLoading) return <Loading />;
   if (isError) return <Error />;
+  if (isLoading) return <Loading />;
 
   return (
     <div className="kanban-body">

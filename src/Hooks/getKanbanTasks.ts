@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { TASK_STATUS, type Task } from "../types/task";
 import { TASKS_API_URL } from "../Services/api";
 
@@ -9,9 +9,7 @@ export const TaskStatusLabels = {
 } as const;
 
 const getTasks = async (): Promise<Task[]> => {
-  const response = await fetch(
-    `${TASKS_API_URL}`,
-  );
+  const response = await fetch(`${TASKS_API_URL}`);
   if (!response.ok) {
     throw new Error("Failed to fetch tasks");
   }
@@ -19,7 +17,7 @@ const getTasks = async (): Promise<Task[]> => {
   return data;
 };
 
-export const useKanbanTasks = () => {
+export const useKanbanTasks = (): UseQueryResult<Task[], Error> => {
   return useQuery<Task[], Error>({
     queryKey: ["tasks"],
     queryFn: getTasks,
