@@ -13,9 +13,9 @@ export const KanbanBoard = ({
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { operation } = event;
-    const source = operation.source;
+    const source = operation?.source;
     const target = operation.target;
-    const newStatus = target.id as string
+    const newStatus = target?.id as string
 
     if (!target) return null;
     mutate({

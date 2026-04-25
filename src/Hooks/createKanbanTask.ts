@@ -9,6 +9,7 @@ import { TASKS_API_URL } from "../Services/api";
 export const useCreateKanbanTask = (): UseMutationResult<
   Task,
   Error,
+  Omit<Task, "id">,
   {
     taskName: string;
     taskStatus: string;
