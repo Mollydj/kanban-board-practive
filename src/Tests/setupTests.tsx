@@ -1,5 +1,5 @@
+declare const global: typeof globalThis;
 import { vi } from "vitest";
-import React from "react";
 import "@testing-library/jest-dom/vitest";
 
 // Mock ResizeObserver globally
