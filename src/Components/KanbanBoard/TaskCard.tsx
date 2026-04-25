@@ -6,7 +6,7 @@ export const TaskCard = ({ task }: { task: TaskType }) => {
     id: task.id,
   });
   return (
-    <div ref={ref} className="task" key={task.id}>
+    <div ref={ref} className="task">
       {task.taskName}
     </div>
   );

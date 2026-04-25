@@ -1,58 +1,8 @@
 @import "tailwindcss";
 @import "welcome-ui/theme.css";
+
+/* Global Page Styling */
 body {
   padding: 10px;
-}
-
-/* reset default scrolling behavior */
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-*::-webkit-scrollbar {
-  display: none;
-}
-
-/* Style Create New Task Input and Button */
-.kanban-add-task {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-/* Style Kanban Swimlanes */
-.lanes {
-  overflow: scroll;
-  width: 100%;
-  height: 100vh;
-
-  display: flex;
-  gap: 1rem;
-  justify-content: space-evenly;
-  opacity: 100;
-  .swimlane {
-    background-color: lightgray;
-    padding: 10px;
-    width: 300px;
-    height: 100svh;
-
-    .task {
-      cursor: move;
-      border-radius: 4px;
-      padding: 10px;
-      margin-bottom: 10px;
-      background-color: lightblue;
-    }
-  }
-}
-
-/* Drag and drop behvaior */
-.is-dragging {
-  opacity: 0.5;
-  background-color: goldenrod;
 }
 

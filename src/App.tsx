@@ -26,13 +26,21 @@ function App() {
       <Header />
       <NewTask />
       <KanBoardContainer isLoading={isLoading} isError={isError}>
-        <SwimLane tasks={groupedTasks[taskStatus.TO_DO]} title="To Do" id={taskStatus.TO_DO} />
+        <SwimLane
+          tasks={groupedTasks[taskStatus.TO_DO]}
+          title="To Do"
+          id={taskStatus.TO_DO}
+        />
         <SwimLane
           tasks={groupedTasks[taskStatus.IN_PROGRESS]}
           title="In Progress"
           id={taskStatus.IN_PROGRESS}
         />
-        <SwimLane tasks={groupedTasks[taskStatus.DONE]} title="Done" id={taskStatus.DONE} />
+        <SwimLane
+          tasks={groupedTasks[taskStatus.DONE]}
+          title="Done"
+          id={taskStatus.DONE}
+        />
       </KanBoardContainer>
     </div>
   );

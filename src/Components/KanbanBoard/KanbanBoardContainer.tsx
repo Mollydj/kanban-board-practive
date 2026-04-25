@@ -1,7 +1,11 @@
 import type { ReactNode } from "react";
 import { Loader } from "welcome-ui/Loader";
 import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
-import { useUpdateTaskStatus } from "../../Hooks/updateKanBanTasks";
+import { useUpdateTaskStatus } from "../../Hooks/updateKanbanTasks";
+import "./KanbanBoard.css";
+import { Alert } from "welcome-ui/Alert";
+import Error from "../Feedback/Error/Error";
+import Loading from "../Feedback/Loading/Loading";
 
 export const KanBoardContainer = ({
   children,
@@ -12,28 +16,30 @@ export const KanBoardContainer = ({
   isLoading: boolean;
   isError: boolean;
 }) => {
-  const { mutate: updateTaskStatus } = useUpdateTaskStatus();
+  const { mutate } = useUpdateTaskStatus();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { operation } = event;
     const source = operation.source;
     const target = operation.target;
     if (!target) return;
-    updateTaskStatus({
+    mutate({
       id: source.id as string,
       taskStatus: target.id as string,
     });
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
   if (isError) {
-    return <p>Error occurred while fetching tasks.</p>;
+    return (
+      <Error />
+    );
   }
   return (
-    <div className="lanes">
-      <DragDropProvider onDragEnd={handleDragEnd}>{children}</DragDropProvider>
+    <div className="dragg-and-drop-container">
+      <DragDropProvider onDragEnd={handleDragEnd}>
+        {isLoading ? <Loading /> : children}
+      </DragDropProvider>
+      {/* // Set up the DragDropProvider to handle drag-and-drop interactions for the swim lanes and task cards */}
     </div>
   );
 };

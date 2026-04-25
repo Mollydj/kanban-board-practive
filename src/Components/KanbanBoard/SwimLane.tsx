@@ -2,17 +2,18 @@ import { Text } from "welcome-ui/Text";
 import type { TaskType } from "../../Hooks/getKanbanTasks";
 import TaskCard from "./TaskCard";
 import { useDroppable } from "@dnd-kit/react";
+import { StickyNote } from "welcome-ui/StickyNote";
 
 export const SwimLane = ({
   tasks,
   title,
-  id
+  id,
 }: {
   tasks: TaskType[];
   title: string;
-  id: string
+  id: string;
 }) => {
-  // console.log("Tasks in swimlane>>", title);
+  // Set up the droppable area for the swim lane using useDroppable from @dnd-kit/react
   const { isDropTarget, ref } = useDroppable({ id: id });
 
   return (
@@ -23,8 +24,11 @@ export const SwimLane = ({
     >
       <Text variant="heading-md-strong">{title}</Text>
       {tasks.map((task) => (
-        <TaskCard task={task} />
+        <TaskCard key={task.id} task={task} />
       ))}
+      {!tasks.length && (
+        <div  className=" no-tasks --spacing-16" >No tasks in this lane</div>
+      )}
     </div>
   );
 };

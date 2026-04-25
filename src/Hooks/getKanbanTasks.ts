@@ -1,10 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 
+
 export const taskStatus = {
   TO_DO: "TO_DO",
   IN_PROGRESS: "IN_PROGRESS",
   DONE: "DONE",
-};
+} as const;
+
+export const taskStatusLabels = {
+  "To Do": taskStatus.TO_DO,
+  "In Progress": taskStatus.IN_PROGRESS,
+  Done: taskStatus.DONE,
+} as const;
 
 export type TaskType = {
   id: string;

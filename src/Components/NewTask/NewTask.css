@@ -1,0 +1,6 @@
+/* Style Create New Task Input and Button */
+
+.kanban-add-task {
+  display: flex;
+  margin: 14px 0px;
+}
